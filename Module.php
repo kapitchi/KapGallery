@@ -75,6 +75,7 @@ class Module extends AbstractModule implements ServiceProviderInterface, Control
                         $sm->get('KapGallery\Entity\Gallery'),
                         $sm->get('KapGallery\Entity\GalleryHydrator')
                     );
+                    $s->setInputFilter($sm->get('KapGallery\Entity\GalleryInputFilter'));
                     return $s;
                 },
                 'KapGallery\Mapper\GalleryDbAdapter' => function ($sm) {
@@ -92,6 +93,15 @@ class Module extends AbstractModule implements ServiceProviderInterface, Control
                     //needed here because hydrator tranforms camelcase to underscore
                     return new \Zend\Stdlib\Hydrator\ClassMethods(false);
                 },
+                'KapGallery\Form\Gallery' => function ($sm) {
+                    $ins = new Form\Gallery('gallery');
+                    $ins->setInputFilter($sm->get('KapGallery\Form\GalleryInputFilter'));
+                    return $ins;
+                },
+                'KapGallery\Form\GalleryInputFilter' => function ($sm) {
+                    $ins = new Form\GalleryInputFilter();
+                    return $ins;
+                },        
                //Item
                 'KapGallery\Service\Item' => function ($sm) {
                     $s = new Service\Gallery(
@@ -99,6 +109,7 @@ class Module extends AbstractModule implements ServiceProviderInterface, Control
                         $sm->get('KapGallery\Entity\Item'),
                         $sm->get('KapGallery\Entity\ItemHydrator')
                     );
+                     $s->setInputFilter($sm->get('KapGallery\Entity\ItemInputFilter'));
                     return $s;
                 },
                 'KapGallery\Mapper\ItemDbAdapter' => function ($sm) {
@@ -116,6 +127,19 @@ class Module extends AbstractModule implements ServiceProviderInterface, Control
                     //needed here because hydrator tranforms camelcase to underscore
                     return new \Zend\Stdlib\Hydrator\ClassMethods(false);
                 },
+                'KapGallery\Entity\GalleryHydrator' => function ($sm) {
+                    //needed here because hydrator tranforms camelcase to underscore
+                    return new \Zend\Stdlib\Hydrator\ClassMethods(false);
+                },
+                'KapGallery\Form\Item' => function ($sm) {
+                    $ins = new Form\Item('item');
+                    $ins->setInputFilter($sm->get('KapGallery\Form\ItemInputFilter'));
+                    return $ins;
+                },
+                'KapGallery\Form\ItemInputFilter' => function ($sm) {
+                    $ins = new Form\ItemInputFilter();
+                    return $ins;
+                },                
             )
         );
     }
