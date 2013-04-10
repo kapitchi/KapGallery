@@ -1,5 +1,6 @@
 {
     "name": "kapitchi/kap-gallery",
+    "license": "LGPL-3.0",
     "description": "ZF2 gallery module",
     "keywords": [
         "kapitchi",
