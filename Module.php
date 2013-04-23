@@ -81,18 +81,14 @@ class Module extends AbstractModule implements ServiceProviderInterface, Control
                         $sm->get('KapGallery\Entity\Gallery'),
                         $sm->get('KapGallery\Entity\GalleryHydrator')
                     );
-                    $s->setInputFilter($sm->get('KapGallery\Entity\GalleryInputFilter'));
                     return $s;
                 },
                 'KapGallery\Mapper\GalleryDbAdapter' => function ($sm) {
                     return new EntityDbAdapterMapper(
                         $sm->get('Zend\Db\Adapter\Adapter'),
-                        new EntityDbAdapterMapperOptions(array(
-                            'tableName' => 'gallery',
-                            'primaryKey' => 'id',
-                            'hydrator' => $sm->get('KapGallery\Entity\GalleryHydrator'),
-                            'entityPrototype' => $sm->get('KapGallery\Entity\Gallery'),
-                        ))
+                        $sm->get('KapGallery\Entity\Gallery'),
+                        $sm->get('KapGallery\Entity\GalleryHydrator'),
+                       'gallery'
                     );
                 },
                 'KapGallery\Entity\GalleryHydrator' => function ($sm) {
@@ -115,18 +111,14 @@ class Module extends AbstractModule implements ServiceProviderInterface, Control
                         $sm->get('KapGallery\Entity\Item'),
                         $sm->get('KapGallery\Entity\ItemHydrator')
                     );
-                     $s->setInputFilter($sm->get('KapGallery\Entity\ItemInputFilter'));
                     return $s;
                 },
                 'KapGallery\Mapper\ItemDbAdapter' => function ($sm) {
                     return new EntityDbAdapterMapper(
                         $sm->get('Zend\Db\Adapter\Adapter'),
-                        new EntityDbAdapterMapperOptions(array(
-                            'tableName' => 'gallery_item',
-                            'primaryKey' => 'id',
-                            'hydrator' => $sm->get('KapGallery\Entity\ItemHydrator'),
-                            'entityPrototype' => $sm->get('KapGallery\Entity\Item'),
-                        ))
+                        $sm->get('KapGallery\Entity\Item'),
+                        $sm->get('KapGallery\Entity\ItemHydrator'),
+                        'gallery_item'
                     );
                 },
                 'KapGallery\Entity\ItemHydrator' => function ($sm) {
